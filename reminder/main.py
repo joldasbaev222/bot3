@@ -15,8 +15,8 @@ scheduler = AsyncIOScheduler()
 @dp.message(Command("start"))
 async def start_cmd(msg: types.Message):
     await msg.answer(
-        "⏰ Eslatma bot!\n"
-        "Misol: /remind 18:30 suv ichish"
+        "⏰ Esletpe bot!\n"
+        "Misal: /remind 18:30 suw ishiw "
     )
 
 @dp.message(Command("remind"))
@@ -24,7 +24,7 @@ async def reminder_cmd(msg: types.Message):
     try:
         data = msg.text.split(maxsplit=2)
         if len(data) < 3:
-            return await msg.answer("❗ Format: /remind 18:30 matn")
+            return await msg.answer("Format: /remind 18:30 tekst.")
 
         time_str = data[1]
         text = data[2]
@@ -42,16 +42,16 @@ async def reminder_cmd(msg: types.Message):
             args=[msg.chat.id, text]
         )
 
-        await msg.answer(f"⏰ Eslatma saqlandi: {time_str}")
+        await msg.answer(f"Esletpe saqlandi: {time_str}")
 
     except Exception as e:
-        await msg.answer(f"Xatolik: {e}")
+        await msg.answer(f"Qatelik: {e}")
 
 async def send_reminder(chat_id: int, text: str):
-    await bot.send_message(chat_id, f"🔔 Eslatma:\n{text}")
+    await bot.send_message(chat_id, f"Esletpe:\n{text}")
 
 async def main():
-    scheduler.start()      # ← TO‘G‘RI JOY
+    scheduler.start()
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
